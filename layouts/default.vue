@@ -13,9 +13,7 @@ watchEffect(() => {
 <template>
   <VAppShell padded-content>
     <!-- header -->
-    <template #navigation>
-      <DashboardAppBar />
-    </template>
+    <template #navigation />
 
     <!-- aside -->
     <template #aside>
@@ -26,16 +24,21 @@ watchEffect(() => {
           :overlay="isMobile"
           :close-on-overlay-click="isMobile"
           :class="{ 'z-20 !w-10/12 sidebar': isMobile }"
+          height="auto"
           bordered
         >
           <main class="bg-default h-screen p-1 transition-all duration-300 w-full ">
             <div class="flex justify-between mb-5">
-              <VText v-if="!isMini">
-                E-Commerce
-              </VText>
-              <VBtn class="flex" color="primary" @click="isMini = !isMini">
-                <VIcon name="solar:hamburger-menu-outline" size="2xl" />
-              </VBtn>
+              <div class="flex justify-start py-2 items-center">
+                <VText v-if="!isMini" font-weight="semibold" variant="display-xs">
+                  E-Commerce
+                </VText>
+              </div>
+              <div class="py-2">
+                <VBtn class="flex" color="primary" @click="isMini = !isMini">
+                  <VIcon name="solar:hamburger-menu-outline" size="2xl" />
+                </VBtn>
+              </div>
             </div>
             <DashboardListMenu />
           </main>

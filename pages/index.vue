@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { VBreadcrumbItemProps } from '@morpheme/breadcrumbs'
+
 const home = ref([
   {
     judul: 'Total Revenue',
@@ -25,10 +27,21 @@ const home = ref([
     iconsHome: 'ic:baseline-close',
   },
 ])
+
+const items = ref<VBreadcrumbItemProps[]>([
+  {
+    title: 'Home',
+    to: '/',
+  },
+])
 </script>
 
 <template>
-  <VContainer padded>
+  <VContainer>
+    <div class="flex justify-between mx-4">
+      <VBreadcrumbs :items="items" />
+      <ColorModeSwitcher />
+    </div>
     <div class="v-app-shell-container--padded md:px-10 v-app-shell-container">
       <VText variant="display-md">
         Dashboard

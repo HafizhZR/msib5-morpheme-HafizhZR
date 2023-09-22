@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { VDataTableHeader } from '@morpheme/table'
+import type { VBreadcrumbItemProps } from '@morpheme/breadcrumbs'
 
 const items = [...Array(0)].map((_, index) => ({
   index,
@@ -8,17 +9,18 @@ const items = [...Array(0)].map((_, index) => ({
   age: index + 1 * 10,
 }))
 
+const selectedTab = ref()
+
 const itemsTab = ref([
   {
-    text: 'Tab Item 1',
+    text: 'Pending',
   },
   {
-    text: 'Tab Item 1',
+    text: 'Sending',
   },
   {
-    text: 'Tab Item 1',
+    text: 'Complete',
   },
-  // ...
 ])
 
 const headers = ref<VDataTableHeader[]>([
@@ -43,10 +45,25 @@ const headers = ref<VDataTableHeader[]>([
     text: 'ADDRESS',
   },
 ])
+
+const itemsBread = ref<VBreadcrumbItemProps[]>([
+  {
+    title: 'Home',
+    to: '/',
+  },
+  {
+    title: 'Transactions',
+    to: '/transactions',
+  },
+])
 </script>
 
 <template>
-  <VContainer padded>
+  <VContainer>
+    <div class="flex justify-between mx-2">
+      <VBreadcrumbs :items="itemsBread" />
+      <ColorModeSwitcher />
+    </div>
     <div class="v-app-shell-container--padded md:px-10 v-app-shell-container">
       <div class="mb-6">
         <VText variant="display-md">
@@ -56,7 +73,10 @@ const headers = ref<VDataTableHeader[]>([
           Manage your products here
         </p>
       </div>
-      <VTabs :items="itemsTab" />
+      <VTabs
+        v-model="selectedTab"
+        :items="itemsTab"
+      />
       <VDataTable
         hover
         :items="items"

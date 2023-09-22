@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import type { VDataTableHeader } from '@morpheme/table'
+import type { VBreadcrumbItemProps } from '@morpheme/breadcrumbs'
 
 const dataProducts = useProductStore()
 const search = ref('')
+// const isOpen = ref(false)
 
 const headers = ref<VDataTableHeader[]>([
   {
@@ -27,10 +29,25 @@ const headers = ref<VDataTableHeader[]>([
     align: 'center',
   },
 ])
+
+const itemsBread = ref<VBreadcrumbItemProps[]>([
+  {
+    title: 'Home',
+    to: '/',
+  },
+  {
+    title: 'Products',
+    to: '/products',
+  },
+])
 </script>
 
 <template>
-  <VContainer padded>
+  <VContainer>
+    <div class="flex justify-between mx-2">
+      <VBreadcrumbs :items="itemsBread" />
+      <ColorModeSwitcher />
+    </div>
     <div class="v-app-shell-container--padded md:px-10 v-app-shell-container">
       <div class="mb-6">
         <VText variant="display-md">
@@ -48,7 +65,7 @@ const headers = ref<VDataTableHeader[]>([
           wrapper-class="mb-4"
           prepend-icon="ri:search-line"
         />
-        <NuxtLink to="/products/add-product">
+        <NuxtLink to="/products/add">
           <VBtn>
             <VIcon name="ic:baseline-plus" />
             <VText>Tambah</VText>
@@ -68,12 +85,28 @@ const headers = ref<VDataTableHeader[]>([
           </div>
         </template>
         <template #item.action="{ item }">
-          <VBtn suffix-icon="ic:outline-remove-red-eye" />
-          <VBtn suffix-icon="ic:baseline-edit" />
-          <VBtn
-            suffix-icon="ic:baseline-delete"
-            @click="dataProducts.deleteProduct(item.id)"
-          />
+          <div class="flex gap-1 justify-center">
+            <NuxtLink :to="`/products/${item.id}`">
+              <VBtn suffix-icon="ic:outline-remove-red-eye" />
+            </NuxtLink>
+            <NuxtLink :to="`/products/edit/${item.id}`">
+              <VBtn suffix-icon="ic:baseline-edit" />
+            </NuxtLink>
+            <VBtn
+              suffix-icon="ic:baseline-delete"
+              @click="dataProducts.deleteProduct(item.id)"
+            >
+            <!-- <VModal v-model="isOpen" confirm @confirm="dataProducts.deleteProduct(item.id)">
+              <template #activator="{ open }">
+                <v-btn
+                  suffix-icon="ic:baseline-delete"
+                  @click="open"
+                />
+              </template>
+              Are you sure to delete this product?
+            </VModal> -->
+            </vbtn>
+          </div>
         </template>
       </VDataTable>
     </div>
