@@ -21,7 +21,7 @@ const schema = object({
   image: mixed().required().label('Image'),
 })
 
-const { resetForm } = useForm({
+const { handleSubmit, resetForm } = useForm({
   validationSchema: schema,
 })
 const name = ref(product?.name || '')
@@ -30,8 +30,7 @@ const category = ref(product?.category || '')
 const description = ref(product?.description || '')
 const image = ref(product?.image || '')
 
-// eslint-disable-next-line antfu/top-level-function
-const onSubmit = () => {
+const onSubmit = handleSubmit(() => {
   const editedProduct: IProducts = {
     id,
     name: name.value,
@@ -43,7 +42,7 @@ const onSubmit = () => {
 
   productStore.editProduct(editedProduct)
   route.push('/products')
-}
+})
 
 const itemsBread = ref<VBreadcrumbItemProps[]>([
   {
@@ -128,7 +127,7 @@ const itemsBread = ref<VBreadcrumbItemProps[]>([
           placeholder="Product Description"
           rounded
         /> -->
-        <div class="mt-4">
+        <div class="flex mt-4 gap-3">
           <v-btn type="submit">
             Submit
           </v-btn>

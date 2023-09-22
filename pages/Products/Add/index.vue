@@ -17,7 +17,7 @@ const schema = object({
   image: mixed().required().label('Image'),
 })
 
-const { resetForm } = useForm({
+const { handleSubmit, resetForm } = useForm({
   validationSchema: schema,
 })
 
@@ -27,8 +27,7 @@ const category = ref('')
 const description = ref('')
 const image = ref('https://source.unsplash.com/random/200x200')
 
-// eslint-disable-next-line antfu/top-level-function
-const onSubmit = () => {
+const onSubmit = handleSubmit(() => {
   const addedProduct: IProducts = {
     id: Math.random(),
     name: name.value,
@@ -40,7 +39,7 @@ const onSubmit = () => {
 
   productStore.addProduct(addedProduct)
   route.push('/products')
-}
+})
 
 const itemsBread = ref<VBreadcrumbItemProps[]>([
   {
@@ -118,7 +117,7 @@ const itemsBread = ref<VBreadcrumbItemProps[]>([
           placeholder="Product Description"
           rounded
         /> -->
-        <div class="mt-4">
+        <div class="flex mt-4 gap-3">
           <v-btn type="submit">
             Submit
           </v-btn>

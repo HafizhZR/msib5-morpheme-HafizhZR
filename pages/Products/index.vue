@@ -95,7 +95,7 @@ const itemsBread = ref<VBreadcrumbItemProps[]>([
             <VBtn
               suffix-icon="ic:baseline-delete"
               @click="dataProducts.deleteProduct(item.id)"
-            >
+            />
             <!-- <VModal v-model="isOpen" confirm @confirm="dataProducts.deleteProduct(item.id)">
               <template #activator="{ open }">
                 <v-btn
@@ -105,7 +105,6 @@ const itemsBread = ref<VBreadcrumbItemProps[]>([
               </template>
               Are you sure to delete this product?
             </VModal> -->
-            </vbtn>
           </div>
         </template>
       </VDataTable>
