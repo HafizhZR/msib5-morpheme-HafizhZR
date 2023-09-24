@@ -21,14 +21,14 @@ const schema = object({
   image: mixed().required().label('Image'),
 })
 
-const { handleSubmit, resetForm } = useForm({
+const { handleSubmit } = useForm({
   validationSchema: schema,
 })
 const name = ref(product?.name || '')
 const price = ref(product?.price || '')
 const category = ref(product?.category || '')
 const description = ref(product?.description || '')
-const image = ref(product?.image || '')
+const image = ref('https://source.unsplash.com/random/200x200')
 
 const onSubmit = handleSubmit(() => {
   const editedProduct: IProducts = {
@@ -74,7 +74,6 @@ const itemsBread = ref<VBreadcrumbItemProps[]>([
       </div>
       <form class="border-none" @submit="onSubmit">
         <v-file-upload
-          v-model="image"
           :value="product?.image"
           wrapper-class="mb-4"
           theme="image"
@@ -127,12 +126,9 @@ const itemsBread = ref<VBreadcrumbItemProps[]>([
           placeholder="Product Description"
           rounded
         /> -->
-        <div class="flex mt-4 gap-3">
+        <div class="flex mt-4">
           <v-btn type="submit">
             Submit
-          </v-btn>
-          <v-btn type="button" text @click="resetForm">
-            Reset
           </v-btn>
         </div>
       </form>

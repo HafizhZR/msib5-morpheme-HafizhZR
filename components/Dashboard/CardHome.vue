@@ -10,6 +10,7 @@ const { judul, totalRevenue, iconsHome } = defineProps({
 <template>
   <VContainer class="flex">
     <VCard
+      color="teal"
       bodyless
       class="p-4 w-[95%] gap-4 mt-6"
     >

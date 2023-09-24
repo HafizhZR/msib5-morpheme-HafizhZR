@@ -4,7 +4,6 @@ import type { VBreadcrumbItemProps } from '@morpheme/breadcrumbs'
 
 const dataProducts = useProductStore()
 const search = ref('')
-// const isOpen = ref(false)
 
 const headers = ref<VDataTableHeader[]>([
   {
@@ -40,6 +39,18 @@ const itemsBread = ref<VBreadcrumbItemProps[]>([
     to: '/products',
   },
 ])
+
+const isOpen = ref(false)
+const loading = ref(false)
+const itemId = ref<number>(0)
+function getIdProduct(id: number) {
+  isOpen.value = true
+  itemId.value = id
+}
+function removeProduct(id: number) {
+  dataProducts.deleteProduct(id)
+  isOpen.value = false
+}
 </script>
 
 <template>
@@ -66,7 +77,7 @@ const itemsBread = ref<VBreadcrumbItemProps[]>([
           prepend-icon="ri:search-line"
         />
         <NuxtLink to="/products/add">
-          <VBtn>
+          <VBtn color="teal">
             <VIcon name="ic:baseline-plus" />
             <VText>Tambah</VText>
           </VBtn>
@@ -94,21 +105,26 @@ const itemsBread = ref<VBreadcrumbItemProps[]>([
             </NuxtLink>
             <VBtn
               suffix-icon="ic:baseline-delete"
-              @click="dataProducts.deleteProduct(item.id)"
+              @click="getIdProduct(item.id)"
             />
-            <!-- <VModal v-model="isOpen" confirm @confirm="dataProducts.deleteProduct(item.id)">
-              <template #activator="{ open }">
-                <v-btn
-                  suffix-icon="ic:baseline-delete"
-                  @click="open"
-                />
-              </template>
-              Are you sure to delete this product?
-            </VModal> -->
           </div>
         </template>
       </VDataTable>
     </div>
+    <VModal
+      v-model="isOpen"
+      title="Delete Item"
+      confirm
+      confirm-text="Delete"
+      confirm-color="error"
+      :loading="loading"
+      centered
+      footer-class="flex-row-reverse"
+      close-text="Cancel"
+      @confirm="removeProduct(itemId)"
+    >
+      <p>Are you sure want to delete this item?</p>
+    </VModal>
   </VContainer>
 </template>
 

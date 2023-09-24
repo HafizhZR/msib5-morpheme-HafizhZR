@@ -39,7 +39,9 @@ const items = ref<VBreadcrumbItemProps[]>([
 <template>
   <VContainer>
     <div class="flex justify-between mx-4">
-      <VBreadcrumbs :items="items" />
+      <VBreadcrumbs
+        :items="items"
+      />
       <ColorModeSwitcher />
     </div>
     <div class="v-app-shell-container--padded md:px-10 v-app-shell-container">
@@ -49,7 +51,7 @@ const items = ref<VBreadcrumbItemProps[]>([
       <p class="text-gray-500 dark:text-neutral-500">
         Monitor your metrics for shipping, transactions, product and many more in here
       </p>
-      <div class="flex justify-between">
+      <div class="grid grid-cols-2 xl:grid-cols-4 justify-between ">
         <DashboardCardHome
           v-for="(dashboard, index) in home"
           :key="index"
@@ -63,6 +65,10 @@ const items = ref<VBreadcrumbItemProps[]>([
   </VContainer>
 </template>
 
-<style>
-
+<style lang="scss">
+:root {
+  --breadcrumbs-item-active-color: var(--color-white);
+  --breadcrumbs-item-active-bg-color: var(--color-teal-600);
+  --breadcrumbs-item-hover-color: var(--color-teal-900);
+}
 </style>

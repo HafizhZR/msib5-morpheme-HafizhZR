@@ -20,12 +20,14 @@ watchEffect(() => {
       <div class="flex h-full">
         <VNavDrawer
           v-model:mini="isMini"
+          v-model="isAsideOpen"
           :fixed="isMobile"
           :overlay="isMobile"
           :close-on-overlay-click="isMobile"
           :class="{ 'z-20 !w-10/12 sidebar': isMobile }"
           height="auto"
           bordered
+          color="teal"
         >
           <main class="bg-default h-screen p-1 transition-all duration-300 w-full ">
             <div class="flex justify-between mb-5">
@@ -35,7 +37,7 @@ watchEffect(() => {
                 </VText>
               </div>
               <div class="py-2">
-                <VBtn class="flex" color="primary" @click="isMini = !isMini">
+                <VBtn class="flex" color="teal" @click="isMini = !isMini">
                   <VIcon name="solar:hamburger-menu-outline" size="2xl" />
                 </VBtn>
               </div>

@@ -9,7 +9,7 @@ const items = [...Array(0)].map((_, index) => ({
   age: index + 1 * 10,
 }))
 
-const selectedTab = ref()
+const selectedTab = ref(0)
 
 const itemsTab = ref([
   {
@@ -65,7 +65,7 @@ const itemsBread = ref<VBreadcrumbItemProps[]>([
       <ColorModeSwitcher />
     </div>
     <div class="v-app-shell-container--padded md:px-10 v-app-shell-container">
-      <div class="mb-6">
+      <div class="mb-2">
         <VText variant="display-md">
           Transactions
         </VText>
@@ -76,7 +76,35 @@ const itemsBread = ref<VBreadcrumbItemProps[]>([
       <VTabs
         v-model="selectedTab"
         :items="itemsTab"
+        :style="{
+          '--v-tabs-item-padding-x': '1rem',
+          '--v-tabs-item-padding-y': '0.25rem',
+          '--v-tabs-item-active-bg-color': 'teal',
+          '--v-tabs-item-active-text-color': 'white',
+          '--v-tabs-item-hover-bg-color': 'teal',
+          '--v-tabs-item-hover-text-color': 'white',
+          '--v-tabs-slider-height': '5px',
+          '--v-tabs-slider-bg-color': 'white',
+          '--v-tabs-slider-border-color': 'white ',
+        }"
       />
+      <div class="p-4">
+        <div v-if="selectedTab === 0 ">
+          <VText variant="xl" font-weight="semibold">
+            Pending
+          </VText>
+        </div>
+        <div v-if="selectedTab === 1 ">
+          <VText variant="xl" font-weight="semibold">
+            Sending
+          </VText>
+        </div>
+        <div v-if="selectedTab === 2 ">
+          <VText variant="xl" font-weight="semibold">
+            Complete
+          </VText>
+        </div>
+      </div>
       <VDataTable
         hover
         :items="items"
